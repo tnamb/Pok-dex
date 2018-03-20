@@ -53,8 +53,12 @@ if(isset($_POST['email']) && !empty($_POST['email']))
              <span class="navbar-text text-light">
              </span>
              <li class="nav-item">
-               <a class="nav-link" href="#">Home</a>
+               <a class="nav-link" href="demo.html">Home</a>
              </li>
+             <li class="nav-item">
+   						<a class="nav-link" href="PokeDetailPage.html">∙ Poke List
+   						</a>
+   					</li>
              <li class="nav-item active">
                <a class="nav-link" href="login.php">Login
                </a>
