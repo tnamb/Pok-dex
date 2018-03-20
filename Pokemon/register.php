@@ -12,12 +12,15 @@
     if(mysqli_num_rows($check_result)==0){
       $query = "insert into register(fname,lname,email,password,role) values('$fname','$lname','$email','$password','user') ";
       $result= mysqli_query($dbc,$query)
-                  or die("Error in querying databse");
+                  or die("Error in querying database");
+      $insert_login="insert into login values('$email','$password','user')";
+      $insert_result= mysqli_query($dbc,$insert_login)
+                  or die("Error in querying login table");
       echo "<script>alert('Registration Successful!');
               window.location.assign('login.php');</script>";
     }
     else {
-      echo "<script>alert('Email Id already exist! Try login');</script>";
+      echo "<script>alert('Email Id already exist!\\n\\tTry login');</script>";
     }
 
   }

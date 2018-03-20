@@ -1,4 +1,28 @@
 <?php
+include 'connection.php';
+
+if(isset($_POST['email']) && !empty($_POST['email']))
+{
+  $email=$_POST['email'];
+  $password = $_POST['password'];
+  $query = "select * from login where email='$email'";
+  $result = mysqli_query($dbc,$query)  or die("First query error");
+  if(mysqli_num_rows($result)==0)
+  {
+    echo "<script>alert('Email-Id not register yet\\n\\tTry regsitering');</script>";
+  }
+  else {
+    $val = mysqli_fetch_array($result);
+    if($val['password'] != $password)
+    {
+      echo "<script>alert('Incorrect password\\n\\tTry again');</script>";
+    }
+    else {
+      echo "<script>alert('Login Successful');
+            window.location.assign('demo.html')</script>";
+    }
+  }
+}
 
  ?>
 
@@ -28,15 +52,15 @@
            <ul class="navbar-nav ml-auto">
              <span class="navbar-text text-light">
              </span>
-             <li class="nav-item active">
+             <li class="nav-item">
                <a class="nav-link" href="#">Home</a>
              </li>
-             <li class="nav-item">
-               <a class="nav-link" href="#">Login
+             <li class="nav-item active">
+               <a class="nav-link" href="login.php">Login
                </a>
              </li>
              <li class="nav-item">
-               <a class="nav-link" href="#">Register
+               <a class="nav-link" href="register.php">Register
                </a>
              </li>
            </ul>
@@ -47,7 +71,7 @@
 
      <!-- Login body -->
      <div class="container py-5">
-        <form class="form-horizontal" role="form" method="POST" action="#">
+        <form class="form-horizontal" role="form" method="POST" action="login.php">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
