@@ -34,6 +34,7 @@
     }
 
     $name=$_POST['name'];
+    $desc = $_POST['desc'];
     $moves=$_POST['moves'];
     $weight=$_POST['weight'];
     $height=$_POST['height'];
@@ -44,15 +45,18 @@
     $check_query="select name from pokemons where name='$name'";
     $check_result=mysqli_query($dbc,$check_query) or die("Selecting error<br>".mysqli_error($dbc));
 
+    $updated_image_name = $name.".".$imageFileType;
+    $updated_image_location = $server_imageDir.$updated_image_name ;
+
     if(mysqli_num_rows($check_result)==0){
 
       //Image Upload
       if($upload_image_ok!=0 && !empty($user_image_name))
       {
-        if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'],$image_location))
+        if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'],$updated_image_location))
         {
-          $query1="insert into pokemons(name,moves,weight,height,evolution_form,pre_evolution_form,type,
-            image) values('$name','$moves',$weight,$height,'$evform','$pre_evform','$type','$user_image_name')";
+          $query1="insert into pokemons(name,description,moves,weight_in_kg,height_in_m,evolution_form,pre_evolution_form,type,
+            image) values('$name','$desc','$moves',$weight,$height,'$evform','$pre_evform','$type','$updated_image_name')";
           $result1= mysqli_query($dbc,$query1)
                       or die("Error in querying<br>".mysqli_error($dbc));
         }
@@ -125,18 +129,18 @@
              <span class="navbar-text text-light">
              </span>
              <li class="nav-item">
-               <a class="nav-link" href="demo.html">Home</a>
+               <a class="nav-link" href="demo.html">∙ Home</a>
              </li>
              <li class="nav-item">
    						<a class="nav-link" href="PokeDetailPage.html">∙ Poke List
    						</a>
    					</li>
              <li class="nav-item">
-               <a class="nav-link" href="login.php">Login
+               <a class="nav-link" href="login.php">∙ Login
                </a>
              </li>
              <li class="nav-item">
-               <a class="nav-link" href="register.php">Register
+               <a class="nav-link" href="register.php">∙ Register
                </a>
              </li>
            </ul>
@@ -172,6 +176,21 @@
                 </div>
             </div>
 
+            <!--Short Description -->
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-group has-danger">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-prepend" >
+                              <label class="input-group-text" for="desc">Description</label>
+                            </div>
+                            <textarea name="desc" id="desc" class="form-control text-capitalize"  rows="2" cols="8" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Moves -->
             <div class="row">
                 <div class="col-md-3"></div>
@@ -201,7 +220,7 @@
                             <input type="number" step="any" min=0 name="weight" class="form-control" id="weight"
                                     required>
                                    <div class="input-group-append" >
-                                     <span class="input-group-text">lbs</span>
+                                     <span class="input-group-text">kg</span>
                                    </div>
                         </div>
                     </div>
@@ -220,7 +239,7 @@
                             <input type="number" step="any" min=0 name="height" class="form-control" id="height"
                                     required>
                                    <div class="input-group-append" >
-                                     <span class="input-group-text">cm</span>
+                                     <span class="input-group-text">m</span>
                                    </div>
                         </div>
                     </div>
