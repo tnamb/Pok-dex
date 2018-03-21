@@ -30,9 +30,14 @@
     <div class="row py-2">
       <div class="col-sm-6">
         <p class="font-weight-bold text-center" style="font-family: Calibri;">Evolution Form:</p><br>
-        <?php for($i=0;$i<sizeof($evo)) ?>
+        <?php for($i=0;$i<sizeof($evo);$i++){
+          $evo_query = mysqli_query($dbc,"select image from pokemons where name='$evo[$i]'")
+            or die("Couldnt fetch evolution<br>".mysqli_error($dbc));
+          $evo_row=mysqli_fetch_array($evo_query);
+        ?>
 
-        <img  class="rounded" style="width:20%" src="<?php echo '../assets/img/'.$row1['image']; ?>" alt="<?php $row1['name'] ?>">
+        <img  class="rounded" style="width:20%" src="<?php echo '../assets/img/'.$evo_row['image']; ?>" alt="<?php $row1['name'] ?>">
+        <?php } ?>
       </div>
       <div class="col-sm-6">
         <p class="font-weight-bold text-center" style="font-family: Calibri;">Pre-Evolution Form:</p>
