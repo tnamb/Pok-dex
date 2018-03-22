@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(!isset($_SESSION['logged_in']))
+{
+    $_SESSION['logged_in']=0;
+}
+
+ ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -90,8 +99,17 @@
 
           <ul class="navbar-nav ml-auto">
             <span class="navbar-text text-light"></span>
+            <?php
+              if(isset($_SESSION['role']) && $_SESSION['role']=='admin')
+              {
+             ?>
+             <li class="nav-item text-light ">
+               <a class="nav-link" href="admin_edit_request.php">∙ AdminHome</a>
+             </li>
+
+           <?php } ?>
             <li class="nav-item active">
-              <a class="nav-link" href="#">∙ Home</a>
+              <a class="nav-link" href="demo.php">∙ Home</a>
             </li>
 
             <li class="nav-item">
@@ -119,6 +137,11 @@
               </a>
             </li> -->
 
+            <?php
+              if($_SESSION['logged_in']==0)
+              {
+             ?>
+
             <li class="nav-item">
               <a class="nav-link" href="login.php">∙ Log In
               </a>
@@ -127,6 +150,13 @@
               <a class="nav-link" href="register.php">∙ Register
               </a>
             </li>
+
+            <?php } else { ?>
+            <li class="nav-item">
+  						<a class="nav-link" href="logout.php">∙ Log out
+  						</a>
+  					</li>
+            <?php } ?>
           </ul>
 
         </div>

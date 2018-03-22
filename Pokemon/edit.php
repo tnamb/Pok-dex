@@ -1,19 +1,9 @@
-<?php
-include 'connection.php';
-
-$query = "select $_POST['field'] from pokemons where poke_id='$_POST['poke_id']'";
-$result=mysqli_query($dbc,$query) or die("ERROR in 1".mysqli_error($dbc));
-$row=mysqli_fetch_array($result);
-$pre_edit=$row[0];
-
-$query1="insert into edit(edit_type,edit,pre_edit) values('$_POST['field']','$_POST['desc']','$pre_edit')";
-$result1=mysqli_query($dbc,$query1) or die("ERROR in 2".mysqli_error($dbc));
 
 
- ?>
-
-<div class="container w-100">
-  <form class="" action="edit.php" method="post">
+<div class="container w-100 py-3">
+  <h4 class="font-weight-bold">Edit Form:</h4>
+  <form class="" action="PokeDetailPage.php" method="post">
+    <input type="hidden" name="poke_id" value="<?php echo $_POST['id'] ?>">
     <div class="form-group">
       <label for="field">Choose field:</label>
       <select class="form-control" name="field">
@@ -21,13 +11,13 @@ $result1=mysqli_query($dbc,$query1) or die("ERROR in 2".mysqli_error($dbc));
         <option value="name">Name</option>
         <option value="type">Type</option>
         <option value="weight_in_kg">Weight</option>
-        <option value="weight_in_m">Height</option>
+        <option value="height_in_m">Height</option>
       </select>
     </div>
     <div class="form-group">
       <label for="desc">Edit:</label>
-      <textarea class="form-control" name="desc" id="desc" rows="2"></textarea>
+      <textarea class="form-control" name="desc" id="desc" rows="2" required  autofocus></textarea>
     </div>
-    <input type="hidden" name="poke_id" value="<?php echo $row['poke_id']; ?>">
+    <input type="submit" class="btn btn-success" name="button" value="Submit request">
   </form>
 </div>

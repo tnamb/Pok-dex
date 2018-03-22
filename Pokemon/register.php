@@ -1,4 +1,8 @@
 <?php
+session_start();
+  if($_SESSION['logged_in']==1){
+    header("location:demo.php");
+}
   include 'connection.php';
 
   if(isset($_POST['fname']) && !empty($_POST['fname']))
@@ -72,7 +76,7 @@
              <span class="navbar-text text-light">
              </span>
              <li class="nav-item">
-               <a class="nav-link" href="demo.html">Home</a>
+               <a class="nav-link" href="demo.php">Home</a>
              </li>
              <li class="nav-item">
    						<a class="nav-link" href="PokeDetailPage.php">∙ Poke List

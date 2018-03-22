@@ -1,4 +1,10 @@
 <?php
+session_start();
+if(($_SESSION['logged_in']!=1)or ($_SESSION['role']!='admin'))
+{
+  header('location:login.php?err=2');
+}
+
   include 'connection.php';
 
   if(isset($_POST['name']) && !empty($_POST['name']))
@@ -129,20 +135,21 @@
              <span class="navbar-text text-light">
              </span>
              <li class="nav-item">
-               <a class="nav-link" href="demo.html">∙ Home</a>
+               <a class="nav-link" href="demo.php">∙ Home</a>
              </li>
              <li class="nav-item">
-   						<a class="nav-link" href="PokeDetailPage.html">∙ Poke List
+   						<a class="nav-link" href="PokeDetailPage.php">∙ Poke List
    						</a>
    					</li>
+            <li class="nav-item active">
+             <a class="nav-link" href="addpokemon.php">∙ Add Pokemon
+             </a>
+           </li>
              <li class="nav-item">
-               <a class="nav-link" href="login.php">∙ Login
+               <a class="nav-link" href="logout.php">∙ Log Out
                </a>
              </li>
-             <li class="nav-item">
-               <a class="nav-link" href="register.php">∙ Register
-               </a>
-             </li>
+
            </ul>
 
          </div>

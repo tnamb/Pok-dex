@@ -1,5 +1,20 @@
 <?php
+session_start();
+if(!isset($_SESSION['logged_in']))
+{
+    $_SESSION['logged_in']=0;
+}
+if($_SESSION['logged_in']==1){
+  header("location:demo.php");
+}
+
 include 'connection.php';
+
+if(!isset($_GET['err'])){
+  $error=0;}
+else {
+  $error=$_GET['err'];
+}
 
 if(isset($_POST['email']) && !empty($_POST['email']))
 {
@@ -13,13 +28,22 @@ if(isset($_POST['email']) && !empty($_POST['email']))
   }
   else {
     $val = mysqli_fetch_array($result);
+
     if($val['password'] != $password)
     {
       echo "<script>alert('Incorrect password\\n\\tTry again');</script>";
     }
     else {
-      echo "<script>alert('Login Successful');
-            window.location.assign('demo.html')</script>";
+      $_SESSION['logged_in']=1;
+      $_SESSION['role']=$val['role'];
+      if($_SESSION['role']=='user')
+      {
+        header("location: demo.php");
+      }
+      else
+      {
+        header("location: admin_edit_request.php");
+      }
     }
   }
 }
@@ -53,7 +77,7 @@ if(isset($_POST['email']) && !empty($_POST['email']))
              <span class="navbar-text text-light">
              </span>
              <li class="nav-item">
-               <a class="nav-link" href="demo.html">Home</a>
+               <a class="nav-link" href="demo.php">Home</a>
              </li>
              <li class="nav-item">
    						<a class="nav-link" href="PokeDetailPage.php">∙ Poke List
@@ -75,6 +99,17 @@ if(isset($_POST['email']) && !empty($_POST['email']))
 
      <!-- Login body -->
      <div class="container py-5">
+       <?php
+
+         if($error==1)
+         {
+           echo "<p style='color:red;'>You need to Log-in to read the complete article.</p>";
+         }
+         if($error==2)
+         {
+           echo "<p style='color:red;'>You need to Log-in as an Admin.</p>";
+         }
+       ?>
         <form class="form-horizontal" role="form" method="POST" action="login.php">
             <div class="row">
                 <div class="col-md-3"></div>
@@ -131,7 +166,7 @@ if(isset($_POST['email']) && !empty($_POST['email']))
             </div>
 
             <!-- 'Remember me' Checkbox -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6" style="padding-top: .35rem">
                     <div class="form-check mb-2 mr-sm-2 mb-sm-0">
@@ -142,7 +177,7 @@ if(isset($_POST['email']) && !empty($_POST['email']))
                         </label>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Submit Button -->
             <div class="row" style="padding-top: 1rem">

@@ -1,9 +1,28 @@
 <?php
+session_start();
   include 'connection.php';
 
   $query="select name,description,image,poke_id from pokemons";
   $result= mysqli_query($dbc,$query) or die("Error querying<br>".mysqli_error($dbc));
   $n=mysqli_num_rows($result);
+
+
+if(!empty($_POST['field']))
+  {
+    $field=$_POST['field'];
+    $desc=$_POST['desc'];
+    $r_poke_id=$_POST['poke_id'];
+    $query = "select $field from pokemons where poke_id='$r_poke_id'";
+    $result=mysqli_query($dbc,$query) or die("ERROR in 1".mysqli_error($dbc));
+    $row=mysqli_fetch_array($result);
+
+    $pre_edit=$row[0];
+
+    $query1="insert into edit(poke_id,edit_type,edit,pre_edit) values('$r_poke_id','$field','$desc','$pre_edit')";
+    $result1=mysqli_query($dbc,$query1) or die("ERROR in 2".mysqli_error($dbc));
+    echo "<script>alert('Your request for edit have been sent to Admin\\t\\nThank You');</script>";
+    echo "<script>window.location.assign('PokeDetailPage.php');</script>";
+  }
 
 
  ?>
@@ -39,9 +58,9 @@
 
       function editRequest(idf) {
         var e_request = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
+        e_request.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("moredetails"+idf  ).innerHTML =
+            document.getElementById("edit"+idf).innerHTML =
             this.responseText;
           }
         };
@@ -65,9 +84,20 @@
 
   				<ul class="navbar-nav ml-auto">
   					<span class="navbar-text text-light"></span>
-  					<li class="nav-item">
-  						<a class="nav-link" href="demo.html">∙ Home</a>
+
+            <?php
+            if(isset($_SESSION['role'])&&$_SESSION['role']=='admin')
+            {
+            ?>
+            <li class="nav-item">
+  						<a class="nav-link" href="admin_edit_request.php">∙ AdminHome</a>
   					</li>
+
+            <?php } ?>
+
+            <li class="nav-item">
+              <a class="nav-link" href="demo.php">∙ Home</a>
+            </li>
 
   					<li class="nav-item active">
   						<a class="nav-link" href="PokeDetailPage.html">∙ Poke List
@@ -94,21 +124,33 @@
   						</a>
   					</li> -->
 
-  					<li class="nav-item">
-  						<a class="nav-link" href="login.php">∙ Log In
+            <?php
+              if($_SESSION['logged_in']==0)
+              {
+             ?>
+
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">∙ Log In
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.php">∙ Register
+              </a>
+            </li>
+
+            <?php } else { ?>
+            <li class="nav-item">
+  						<a class="nav-link" href="logout.php">∙ Log out
   						</a>
   					</li>
-  					<li class="nav-item">
-  						<a class="nav-link" href="register.php">∙ Register
-  						</a>
-  					</li>
+            <?php } ?>
   				</ul>
 
   			</div>
   		</div>
   	</nav>
 
-    <div class="container">
+    <div class="container" id="parent">
       <div class="row">
         <h4 class="py-3">LIST OF POKEMONS</h4>
       </div>
@@ -121,20 +163,21 @@
       ?>
       <!-- pokemon name and description -->
       <div class="row mt-2" onclick="showDetails(<?php echo $row['poke_id']; ?>);"
-        data-toggle="collapse" data-target="<?php echo '#moredetails'.$row['poke_id']; ?>" data-toggle="tooltip" title="Click anywhere on me to toggle!">
-        <div class="col-sm-3">
-          <h2  class="text-capitalize">
-            <?php echo $row['name'] ?>
-          </h2>
+        data-toggle="collapse" data-target="<?php echo '#moredetails'.$row['poke_id']; ?>" data-toggle="tooltip" title="Click me to see more!">
 
+        <div class="col-sm-3">
           <p>
             <img style="width:50%" class=" img-responsive rounded"
                 src="../assets/img/<?php echo $row['image'] ?>" alt="<?php echo $row['name'] ?>"/>
           </p>
 
+          <p  class="text-capitalize font-weight-bold lead btn btn-danger">
+            <?php echo $row['name'] ?>
+          </p>
         </div>
+
         <div class="col-sm-9">
-          <hr>
+          <p class="lead">Description:</p>
           <p>
             <?php echo $row['description'] ?>
           </p>
@@ -142,19 +185,20 @@
       </div>
       <!-- pokemon more details -->
       <div class="container">
-        <div class="row" id="<?php echo 'moredetails'.$row['poke_id']; ?>">
+        <div class="row" id="<?php echo 'moredetails'.$row['poke_id']; ?>" data-parent="#parent">
           <!-- AJAX HERE -->
 
         </div>
-        <button type="button" class="btn btn-primary" onclick="editRequest(<?php echo $row['poke_id']; ?>);" name="button"
-            data-toggle="collapse" data-target="#<?php echo 'edit'.$row['poke_id']; ?>">
-          <i class="fa fa-edit"></i> Edit
-        </button>
+
+
       </div>
 
 
-      <div class="container w-50" id="<?php echo 'edit'.$row['poke_id']; ?>">
+      <div class="container" id="parent2" >
+        <div class="row" id="<?php echo 'edit'.$row['poke_id']; ?>" >
 
+        </div>
+<hr>
       </div>
 
       <?php }  ?>
