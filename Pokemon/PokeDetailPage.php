@@ -17,6 +17,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -98,21 +100,25 @@
         <h4 class="py-3">LIST OF POKEMONS</h4>
       </div>
 
+
+      <!-- Loop should start here -->
+      <!-- for i=0 till i < no of columns -->
       <?php for ($i=0; $i<$n; $i++) {
         $row=mysqli_fetch_array($result);
       ?>
-      <!-- Loop should start here -->
-      <!-- for i=0 till i < no of columns -->
       <!-- pokemon name and description -->
-      <div class="row">
+      <div class="row mt-2" onclick="showDetails(<?php echo $row['poke_id']; ?>);"
+        data-toggle="collapse" data-target="<?php echo '#moredetails'.$row['poke_id']; ?>" data-toggle="tooltip" title="Click anywhere on me to toggle!">
         <div class="col-sm-3">
-          <h2 onclick="showDetails(<?php echo $row['poke_id']; ?>);" class="text-capitalize" data-toggle="collapse" data-target="<?php echo '#moredetails'.$row['poke_id']; ?>">
+          <h2  class="text-capitalize">
             <?php echo $row['name'] ?>
           </h2>
+
           <p>
-            <img onclick="showDetails(<?php echo $row['poke_id']; ?>);" data-toggle="collapse" data-target="<?php echo '#moredetails'.$row['poke_id']; ?>" style="width:50%" class=" img-responsive rounded"
+            <img style="width:50%" class=" img-responsive rounded"
                 src="../assets/img/<?php echo $row['image'] ?>" alt="<?php echo $row['name'] ?>"/>
           </p>
+
         </div>
         <div class="col-sm-9">
           <hr>
@@ -127,7 +133,32 @@
           <!-- AJAX HERE -->
 
         </div>
+        <button type="button" class="btn btn-primary" name="button" data-toggle="collapse" data-target="#<?php echo 'edit'.$row['poke_id']; ?>">
+          <i class="fa fa-edit"></i> Edit
+        </button>
       </div>
+
+
+      <div class="container w-50" id="<?php echo 'edit'.$row['poke_id']; ?>">
+        <form class="" action="edit.php" method="post">
+          <div class="form-group">
+            <label for="field">Choose field:</label>
+            <select class="form-control" name="field">
+              <option value="-1">Select..</option>
+              <option value="name">Name</option>
+              <option value="type">Type</option>
+              <option value="weight_in_kg">Weight</option>
+              <option value="weight_in_m">Height</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="desc">Edit:</label>
+            <textarea class="form-control" name="desc" id="desc" rows="2"></textarea>
+          </div>
+          <input type="hidden" name="poke_id" value="<?php echo $row['poke_id']; ?>">
+        </form>
+      </div>
+
       <?php }  ?>
       <!-- Loop should end here -->
 
@@ -138,6 +169,12 @@
   			<p class="m-0 text-center text-white small">Pokedex 2018. All Rights Reserved &copy; </p>
   		</div>
   	</footer>
+
+    <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+    </script>
 
   </body>
 </html>

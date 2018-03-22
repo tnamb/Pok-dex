@@ -75,7 +75,7 @@
                <a class="nav-link" href="demo.html">Home</a>
              </li>
              <li class="nav-item">
-   						<a class="nav-link" href="PokeDetailPage.html">∙ Poke List
+   						<a class="nav-link" href="PokeDetailPage.php">∙ Poke List
    						</a>
    					</li>
              <li class="nav-item">
