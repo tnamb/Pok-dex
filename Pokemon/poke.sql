@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `edit`
+--
+
+DROP TABLE IF EXISTS `edit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `edit` (
+  `edit_id` int(50) NOT NULL AUTO_INCREMENT,
+  `edit_type` varchar(50) DEFAULT NULL,
+  `edit` text,
+  `pre_edit` text,
+  `time_stamp` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (`edit_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `edit`
+--
+
+LOCK TABLES `edit` WRITE;
+/*!40000 ALTER TABLE `edit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `edit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `login`
 --
 
@@ -59,8 +85,11 @@ CREATE TABLE `pokemons` (
   `pre_evolution_form` varchar(50) DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
   `image` text,
+  `edit_id` int(50) DEFAULT NULL,
   PRIMARY KEY (`poke_id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  KEY `edit_id` (`edit_id`),
+  CONSTRAINT `pokemons_ibfk_1` FOREIGN KEY (`edit_id`) REFERENCES `edit` (`edit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,7 +99,7 @@ CREATE TABLE `pokemons` (
 
 LOCK TABLES `pokemons` WRITE;
 /*!40000 ALTER TABLE `pokemons` DISABLE KEYS */;
-INSERT INTO `pokemons` VALUES (1,'blastoise','The jets of water it spouts from the rocket cannons on its shell can punch through thick steel.','Tackle,Tail whip,Bubble,Water gun',85.5,1.6,'none','wartortle','water','blastoise.png'),(2,'Bulbasaur',NULL,'tackle,growl,leechseed,synthesis',6.9,0.7,'ivysaur,venasaur','none','grass','Bulbasaur.png'),(3,'charizard',NULL,'heatwave,seismictoss,dragonrage,flamethrower',90.5,1.7,'none','charmelion','fire','charizard.png'),(4,'charmander',NULL,'smokescreen,firefang,ember,scratch',8.5,0.6,'charmelion,charizard','none','fire','charmander.png'),(5,'ivysaur',NULL,'vinewhip,takedown,leechseed,synthesis',13,1,'venusaur','bulbasaur','grass','ivysaur.png'),(6,'pikachu',NULL,'thundershock,electroball,sparkle,nuzzle',6,0.4,'raichu','pichu','electric','pikachu.png'),(7,'squirtle',NULL,'tackle,taiwhip,watergun,bubble',9,0.5,'wartortle,blastoise','none','water','squirtle.png'),(8,'venusaur',NULL,'vinewhip,takedown,leechseed,synthesis',100,2,'none','ivysaur','grass','venusaur.png'),(9,'wartotle',NULL,'hydropump,aquapulse,watergun,bubble',22.5,1,'blastoise','squirtle','water','wartotle.png');
+INSERT INTO `pokemons` VALUES (1,'blastoise','The jets of water it spouts from the rocket cannons on its shell can punch through thick steel.','Tackle,Tail whip,Bubble,Water gun',85.5,1.6,'none','wartortle','water','blastoise.png',NULL),(2,'Bulbasaur',NULL,'tackle,growl,leechseed,synthesis',6.9,0.7,'ivysaur,venasaur','none','grass','Bulbasaur.png',NULL),(3,'charizard',NULL,'heatwave,seismictoss,dragonrage,flamethrower',90.5,1.7,'none','charmelion','fire','charizard.png',NULL),(4,'charmander',NULL,'smokescreen,firefang,ember,scratch',8.5,0.6,'charmelion,charizard','none','fire','charmander.png',NULL),(5,'ivysaur',NULL,'vinewhip,takedown,leechseed,synthesis',13,1,'venasaur','bulbasaur','grass','ivysaur.png',NULL),(6,'pikachu',NULL,'thundershock,electroball,sparkle,nuzzle',6,0.4,'raichu','pichu','electric','pikachu.png',NULL),(7,'squirtle',NULL,'tackle,taiwhip,watergun,bubble',9,0.5,'wartortle,blastoise','none','water','squirtle.png',NULL),(8,'venasaur',NULL,'vinewhip,takedown,leechseed,synthesis',100,2,'none','ivysaur','grass','venasaur.png',NULL),(9,'wartortle',NULL,'hydropump,aquapulse,watergun,bubble',22.5,1,'blastoise','squirtle','water','wartortle.png',NULL);
 /*!40000 ALTER TABLE `pokemons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-21 20:38:28
+-- Dump completed on 2018-03-22 10:40:16

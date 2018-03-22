@@ -36,6 +36,19 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("id="+idf);
       }
+
+      function editRequest(idf) {
+        var e_request = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("moredetails"+idf  ).innerHTML =
+            this.responseText;
+          }
+        };
+        e_request.open("POST", "edit.php", true);
+        e_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        e_request.send("id="+idf);
+      }
     </script>
 
   </head>
@@ -133,30 +146,15 @@
           <!-- AJAX HERE -->
 
         </div>
-        <button type="button" class="btn btn-primary" name="button" data-toggle="collapse" data-target="#<?php echo 'edit'.$row['poke_id']; ?>">
+        <button type="button" class="btn btn-primary" onclick="editRequest(<?php echo $row['poke_id']; ?>);" name="button"
+            data-toggle="collapse" data-target="#<?php echo 'edit'.$row['poke_id']; ?>">
           <i class="fa fa-edit"></i> Edit
         </button>
       </div>
 
 
       <div class="container w-50" id="<?php echo 'edit'.$row['poke_id']; ?>">
-        <form class="" action="edit.php" method="post">
-          <div class="form-group">
-            <label for="field">Choose field:</label>
-            <select class="form-control" name="field">
-              <option value="-1">Select..</option>
-              <option value="name">Name</option>
-              <option value="type">Type</option>
-              <option value="weight_in_kg">Weight</option>
-              <option value="weight_in_m">Height</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="desc">Edit:</label>
-            <textarea class="form-control" name="desc" id="desc" rows="2"></textarea>
-          </div>
-          <input type="hidden" name="poke_id" value="<?php echo $row['poke_id']; ?>">
-        </form>
+
       </div>
 
       <?php }  ?>

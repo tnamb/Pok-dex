@@ -11,3 +11,23 @@ $result1=mysqli_query($dbc,$query1) or die("ERROR in 2".mysqli_error($dbc));
 
 
  ?>
+
+<div class="container w-100">
+  <form class="" action="edit.php" method="post">
+    <div class="form-group">
+      <label for="field">Choose field:</label>
+      <select class="form-control" name="field">
+        <option value="-1">Select..</option>
+        <option value="name">Name</option>
+        <option value="type">Type</option>
+        <option value="weight_in_kg">Weight</option>
+        <option value="weight_in_m">Height</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="desc">Edit:</label>
+      <textarea class="form-control" name="desc" id="desc" rows="2"></textarea>
+    </div>
+    <input type="hidden" name="poke_id" value="<?php echo $row['poke_id']; ?>">
+  </form>
+</div>
