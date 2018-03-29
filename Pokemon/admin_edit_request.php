@@ -37,8 +37,10 @@ $n=mysqli_num_rows($result);
             alert("Edited successful!");
             window.location.reload();
           }
-          else if(a==0)
+          else if(a==0){
             alert("Request Declined!");
+            window.location.reload();
+          }
           else {
             alert(a);
           }
@@ -115,7 +117,7 @@ $n=mysqli_num_rows($result);
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3 class="text-center">Welcome Admin</h3>
+          <h3 class="text-center mt-3">Welcome Admin</h3>
         </div>
       </div>
 
@@ -132,6 +134,7 @@ $n=mysqli_num_rows($result);
                 <tr>
                   <th>Edit-ID</th>
                   <th>Poke-ID</th>
+                  <th>From</th>
                   <th>Edit Field</th>
                   <th>Pre-edit</th>
                   <th>Edit</th>
@@ -150,6 +153,7 @@ $n=mysqli_num_rows($result);
                 <tr>
                   <td><?php echo $row['edit_id'] ?></td>
                   <td><?php echo $row['poke_id'] ?></td>
+                  <td><?php echo $row['request_from'] ?></td>
                   <td><?php echo $row['edit_type'] ?></td>
                   <td><?php echo $row['pre_edit'] ?></td>
                   <td><?php echo $row['edit'] ?></td>

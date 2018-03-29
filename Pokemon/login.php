@@ -35,6 +35,7 @@ if(isset($_POST['email']) && !empty($_POST['email']))
     }
     else {
       $_SESSION['logged_in']=1;
+      $_SESSION['email']=$email;
       $_SESSION['role']=$val['role'];
       if($_SESSION['role']=='user')
       {

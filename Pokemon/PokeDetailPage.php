@@ -18,7 +18,9 @@ if(!empty($_POST['field']))
 
     $pre_edit=$row[0];
 
-    $query1="insert into edit(poke_id,edit_type,edit,pre_edit) values('$r_poke_id','$field','$desc','$pre_edit')";
+    $user_email=$_SESSION['email'];
+
+    $query1="insert into edit(poke_id,request_from,edit_type,edit,pre_edit) values('$r_poke_id','$user_email','$field','$desc','$pre_edit')";
     $result1=mysqli_query($dbc,$query1) or die("ERROR in 2".mysqli_error($dbc));
     echo "<script>alert('Your request for edit have been sent to Admin\\t\\nThank You');</script>";
     echo "<script>window.location.assign('PokeDetailPage.php');</script>";
