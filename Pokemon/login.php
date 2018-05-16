@@ -8,6 +8,10 @@ if($_SESSION['logged_in']==1){
   header("location:demo.php");
 }
 
+$err = array(1 => "You need to Log-in to read the complete article.",
+              2 => "You need to Log-in as an Admin.",
+              3 => "You need to Log-in to access Forum."
+              );
 include 'connection.php';
 
 if(!isset($_GET['err'])){
@@ -24,14 +28,14 @@ if(isset($_POST['email']) && !empty($_POST['email']))
   $result = mysqli_query($dbc,$query)  or die("First query error");
   if(mysqli_num_rows($result)==0)
   {
-    echo "<script>alert('Email-Id not register yet\\n\\tTry regsitering');</script>";
+    echo "<script>alert('Incorrect Email-Id or password\\n\\tTry again');</script>";
   }
   else {
     $val = mysqli_fetch_array($result);
 
     if($val['password'] != $password)
     {
-      echo "<script>alert('Incorrect password\\n\\tTry again');</script>";
+      echo "<script>alert('Incorrect Email-Id or password\\n\\tTry again');</script>";
     }
     else {
       $_SESSION['logged_in']=1;
@@ -100,17 +104,12 @@ if(isset($_POST['email']) && !empty($_POST['email']))
 
      <!-- Login body -->
      <div class="container py-5">
-       <?php
-
-         if($error==1)
+      <?php
+        if($error>0)
          {
-           echo "<p style='color:red;'>You need to Log-in to read the complete article.</p>";
-         }
-         if($error==2)
-         {
-           echo "<p style='color:red;'>You need to Log-in as an Admin.</p>";
-         }
-       ?>
+        ?>
+           <p style='color:red;' class="text-center"><?php echo $err[$error]; ?></p>
+      <?php } ?>
         <form class="form-horizontal" role="form" method="POST" action="login.php">
             <div class="row">
                 <div class="col-md-3"></div>

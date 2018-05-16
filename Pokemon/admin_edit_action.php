@@ -8,6 +8,7 @@ $query1="select * from edit where edit_id=$edit_id";
 $result1=mysqli_query($dbc,$query1) or die("Error selecting<br>".mysqli_error($dbc));
 $edit_result=mysqli_fetch_array($result1);
 
+
 if($_POST['action']==1){
 
   $query2="update pokemons set $edit_result[edit_type]='$edit_result[edit]',edit_id=$edit_result[edit_id]
@@ -19,6 +20,11 @@ if($_POST['action']==1){
               '$edit_result[request_from]','$edit_result[edit_type]','$edit_result[pre_edit]','$edit_result[edit]','$edit_result[time_stamp]')";
   $result3=mysqli_query($dbc,$query3) or die("Error Inserting(accept)<br>".mysqli_error($dbc));
 
+  $query5 ="insert into edit_record(edit_id,poke_id,request_from,edit,action)
+            values($edit_result[edit_id],$edit_result[poke_id],
+              '$edit_result[request_from]','$edit_result[edit]','ACPTD')";
+  $result5=mysqli_query($dbc,$query5) or die("Error Inserting(accept)<br>".mysqli_error($dbc));
+
   $query4="delete from edit where edit_id=$edit_result[edit_id]";
   $result4=mysqli_query($dbc,$query4) or die("Error Deleting(accept)<br>".mysqli_error($dbc));
   echo "1";
@@ -29,6 +35,11 @@ elseif ($_POST['action']==0) {
               values($edit_result[edit_id],$edit_result[poke_id],
                 '$edit_result[request_from]','$edit_result[edit_type]','$edit_result[pre_edit]','$edit_result[edit]','$edit_result[time_stamp]')";
     $result3=mysqli_query($dbc,$query3) or die("Error Inserting(accept)<br>".mysqli_error($dbc));
+
+    $query5 ="insert into edit_record(edit_id,poke_id,request_from,edit,action)
+              values($edit_result[edit_id],$edit_result[poke_id],
+                '$edit_result[request_from]','$edit_result[edit]','DECLD')";
+    $result5=mysqli_query($dbc,$query5) or die("Error Inserting(accept)<br>".mysqli_error($dbc));
 
     $query4="delete from edit where edit_id=$edit_result[edit_id]";
     $result4=mysqli_query($dbc,$query4) or die("Error Deleting(accept)<br>".mysqli_error($dbc));

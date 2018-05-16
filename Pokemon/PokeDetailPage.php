@@ -2,7 +2,7 @@
 session_start();
   include 'connection.php';
 
-  $query="select name,description,image,poke_id from pokemons";
+  $query="select name,description,image,poke_id,edit_id from pokemons";
   $result= mysqli_query($dbc,$query) or die("Error querying<br>".mysqli_error($dbc));
   $n=mysqli_num_rows($result);
 
@@ -179,7 +179,11 @@ if(!empty($_POST['field']))
         </div>
 
         <div class="col-sm-9">
-          <p class="lead">Description:</p>
+          <p class="lead">Description:
+            <?php if ($row['edit_id']!=NULL) {?>
+              <span class="small text-warning"><i class="fa fa-pencil-square-o "></i> Edited</span>
+              <?php } ?>
+          </p>
           <p>
             <?php echo $row['description'] ?>
           </p>
