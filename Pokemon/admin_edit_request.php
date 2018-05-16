@@ -58,7 +58,7 @@ $n=mysqli_num_rows($result);
     <!-- Navigation -->
   	<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   		<div class="container">
-  			<a class="navbar-brand" href="">Pokedex</a>
+  			<a class="navbar-brand" href="demo.php">Pokedex</a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
   				<span class="navbar-toggler-icon"></span>
   			</button>
@@ -73,6 +73,10 @@ $n=mysqli_num_rows($result);
   					<li class="nav-item">
   						<a class="nav-link" href="demo.php">∙ Home</a>
   					</li>
+            <li class="nav-item">
+              <a class="nav-link" href="forum_home.php">∙ ForumHome
+              </a>
+            </li>
 
   					<li class="nav-item">
   						<a class="nav-link" href="PokeDetailPage.php">∙ Poke List

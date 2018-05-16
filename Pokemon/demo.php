@@ -117,6 +117,11 @@ if(!isset($_SESSION['logged_in']))
   						</a>
   					</li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="forum_home.php">∙ ForumHome
+              </a>
+            </li>
+
             <!-- <li class="nav-item">
               <a class="nav-link" href="#">∙ Legendary Pokemons
               </a>
