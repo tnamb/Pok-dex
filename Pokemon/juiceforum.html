@@ -1,8 +1,20 @@
+<?php
+session_start();
+if(($_SESSION['logged_in']!=1))
+{
+  header('location:login.php?err=3');
+}
+include 'connection.php';
+$topic_id=$_GET['id'];
+$query="select starting_text,topic_name from forum_topics where topic_id=$topic_id";
+$result=mysqli_query($dbc,$query) or die(mysqli_error($dbc));
+$start_with=mysqli_fetch_array($result);
+ ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Forum Home</title>
+    <title>Topic - <?php echo ucfirst($start_with['topic_name']); ?></title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +30,7 @@
 
 
 <style>
-    td, th 
+    td, th
     {
     border: 1px solid #dddddd;
     text-align: left;
@@ -88,22 +100,22 @@
                         <p>ManlyFlower</p>
                     </td>
                 </th>
-    
-    
+
+
                 <th>    <!-- USER's POST-->
                         <p>Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
                                 Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
                                 Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
-                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker. 
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
+                                Thanks for having me! I have been collecting bootlegs of Guns N Roses since 2008. I was on gnr tracker.
                         </p>
                 </th>
-                   
-               
+
+
                 <th>
                     <!--PHP TIME FUNCTION-->
                 </th>
@@ -143,7 +155,7 @@
 <!--- ADD REPLY BUTTON-->
 
 <Div stlye="margin-top:%; margin-bottom:0%">
- 
+
 <footer style="background-color:black" class="py-5 bg-black" class="fixed bottom">
     <div class="container">
       <p class="m-0 text-center text-white small">Pokedex 2018. All Rights Reserved &copy; </p>
