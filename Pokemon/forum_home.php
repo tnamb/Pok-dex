@@ -112,6 +112,10 @@ $no=mysqli_num_rows($result);
 
     </div>
 
-<button class="btn btn-danger fixed-bottom rounded-circle my-5 border" title="Add topic" style="margin-left:50%;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><i class="fa fa-plus" style="font-size:40px;color:white;"></i></button>
+<a href="forum_add_topic.php">
+<button class="btn btn-danger fixed-bottom rounded-circle my-5 border" title="Add topic" style="margin-left:50%;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
+  <i class="fa fa-plus" style="font-size:40px;color:white;"></i>
+</button>
+</a>
   </body>
 </html>
