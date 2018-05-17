@@ -152,7 +152,7 @@ CREATE TABLE `forum_replies` (
   KEY `commented_by` (`commented_by`),
   CONSTRAINT `forum_replies_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `forum_topics` (`topic_id`) ON DELETE CASCADE,
   CONSTRAINT `forum_replies_ibfk_2` FOREIGN KEY (`commented_by`) REFERENCES `login` (`email`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,6 +161,7 @@ CREATE TABLE `forum_replies` (
 
 LOCK TABLES `forum_replies` WRITE;
 /*!40000 ALTER TABLE `forum_replies` DISABLE KEYS */;
+INSERT INTO `forum_replies` VALUES (1,1,'hi','tarun.goenka12@gmail.com','2018-05-16 14:32:14.996144'),(2,2,'testing testing testing','tarun.goenka12@gmail.com','2018-05-16 14:33:50.106565'),(3,1,'testing\r\nyou','tarun.goenka12@gmail.com','2018-05-16 14:55:38.227357'),(4,3,'common lets see what you got there','tarun.goenka12@gmail.com','2018-05-16 15:37:11.049983');
 /*!40000 ALTER TABLE `forum_replies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +181,7 @@ CREATE TABLE `forum_topics` (
   PRIMARY KEY (`topic_id`),
   KEY `created_by` (`created_by`),
   CONSTRAINT `forum_topics_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `login` (`email`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,7 +190,7 @@ CREATE TABLE `forum_topics` (
 
 LOCK TABLES `forum_topics` WRITE;
 /*!40000 ALTER TABLE `forum_topics` DISABLE KEYS */;
-INSERT INTO `forum_topics` VALUES (1,'testing','this is to test','tarun.goenka12@gmail.com','2018-05-16 08:54:42.334016'),(2,'testing2','hi','tarun.goenka12@gmail.com','2018-05-16 08:54:58.799286');
+INSERT INTO `forum_topics` VALUES (1,'testing','this is to test','tarun.goenka12@gmail.com','2018-05-16 08:54:42.334016'),(2,'testing2','hi','tarun.goenka12@gmail.com','2018-05-16 08:54:58.799286'),(3,'testing','','tarun.goenka12@gmail.com','2018-05-16 14:22:14.832368'),(4,'test','fsddagggggggggggggggggggggggggfsd dvgdsf','tarun.goenka12@gmail.com','2018-05-16 15:35:02.695399'),(5,'test newline','check this\r\ndasg','tarun.goenka12@gmail.com','2018-05-16 15:35:37.618861');
 /*!40000 ALTER TABLE `forum_topics` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-16 16:39:11
+-- Dump completed on 2018-05-16 21:11:36
