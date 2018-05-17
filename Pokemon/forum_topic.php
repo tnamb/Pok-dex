@@ -172,13 +172,13 @@ $no=mysqli_num_rows($result2);
 
 
 <!--- ADD REPLY BUTTON-->
-<form  action="forum_add_reply.php" method="post">
+<!-- <form  action="forum_add_reply.php" method="post">
   <input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>" >
   <input type="hidden" name="topic_name" value="<?php echo $start_with['topic_name']; ?>" >
     <button type="submit" class="btn btn-primary fixed-bottom rounded-square border" title="Add Reply" style="margin-left:50%;margin-bottom:10%;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
       <i class="fa fa-plus" style="font-size:30px;color:white;"></i>
     </button>
-</form>
+</form> -->
 
 
 
