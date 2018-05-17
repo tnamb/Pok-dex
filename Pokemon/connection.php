@@ -1,7 +1,7 @@
 <?php
 $db_host='localhost';
-$db_user='presi';
-$db_password='1234';
+$db_user='root';
+$db_password='tnamb007';
 $db_name='pokedex';
 
 $dbc=mysqli_connect($db_host,$db_user,$db_password,$db_name)
